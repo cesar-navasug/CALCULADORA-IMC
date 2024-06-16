@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora del Índice de Masa Corporal (IMC)</h1>
+        <form method="POST">
+            <label for="weight">Peso (kg):</label>
+            <input type="number" step="0.1" id="weight" name="weight" required>
+            <br>
+            <label for="height">Altura (m):</label>
+            <input type="number" step="0.01" id="height" name="height" required>
+            <br>
+            <button type="submit">Calcular</button>
+        </form>
+        {% if bmi is not none %}
+            <h2>Tu IMC es: {{ bmi|round(2) }}</h2>
+            <div class="result">
+                <p>Tu clasificación según tu IMC es: 
+                {% if bmi < 18.5 %}
+                    Peso bajo
+                {% elif bmi < 25 %}
+                    Peso normal
+                {% elif bmi < 30 %}
+                    Sobrepeso
+                {% elif bmi < 35 %}
+                    Obesidad
+                {% else %}
+                    Obesidad mórbida
+                {% endif %}
+                </p>
+                <h3>Tabla de Clasificación del IMC</h3>
+                <ul>
+                    <li>Peso bajo: menos de 18.5</li>
+                    <li>Peso normal: 18.5 a 24.9</li>
+                    <li>Sobrepeso: 25 a 29.9</li>
+                    <li>Obesidad: 30 a 34.9</li>
+                    <li>Obesidad mórbida: 35 y más</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
